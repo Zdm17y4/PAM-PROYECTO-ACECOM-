@@ -6,7 +6,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] public float _moveSpeed = 5f;
+
+
+
 
     private Vector2 _movement;
 
@@ -39,4 +42,29 @@ public class PlayerMovement : MonoBehaviour
             _animator.SetFloat(_lastVertical, _movement.y);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Explosion"))
+        {
+            DeathSequence();
+        }
+    }
+
+    public GameObject Player;
+
+    private void DeathSequence()
+    {
+        enabled = false;
+        GetComponent<BombController>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
+
+        SpriteRenderer spriteRenderer = Player.GetComponent<SpriteRenderer>();
+        CircleCollider2D circleCollider2D = Player.GetComponent<CircleCollider2D>();
+        spriteRenderer.enabled = false;
+        circleCollider2D.enabled = false;
+    }
+
+
+
 }
