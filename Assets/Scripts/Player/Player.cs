@@ -34,8 +34,9 @@ public class Player : MonoBehaviour
     {
         selectedOption = PlayerPrefs.GetInt("selectedOption");
     }
+ 
 
 
-    
+
 
 }

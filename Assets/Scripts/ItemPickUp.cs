@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
@@ -10,33 +11,63 @@ public class ItemPickup : MonoBehaviour
     }
 
     public ItemType type;
+    public List<string> allowedTags = new List<string> { "Player", "Bot" };
 
-    private void OnItemPickup(GameObject player)
+    private Score scoreManager;
+
+    private void Start()
     {
-        switch (type)
-        {
-            case ItemType.ExtraBomb:
-                player.GetComponent<BombController>().AddBomb();
-                break;
-
-            case ItemType.BlastRadius:
-                player.GetComponent<BombController>().explosionRadius++;
-                break;
-
-            case ItemType.SpeedIncrease:
-                player.GetComponent<PlayerMovement>()._moveSpeed += 0.5f;
-                break;
-        }
-
-        Destroy(gameObject);
+        scoreManager = FindObjectOfType<Score>();
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (allowedTags.Contains(other.tag))
         {
             OnItemPickup(other.gameObject);
         }
     }
 
+    private void OnItemPickup(GameObject target)
+    {
+        switch (type)
+        {
+            case ItemType.ExtraBomb:
+                BombController bombController = target.GetComponent<BombController>();
+                if (bombController != null)
+                {
+                    bombController.AddBomb();
+                }
+
+                if (scoreManager != null)
+                {
+                    scoreManager.scoreUp(1f);
+                }
+                break;
+
+            case ItemType.BlastRadius:
+                BombController bombControllerRadius = target.GetComponent<BombController>();
+                if (bombControllerRadius != null)
+                {
+                    bombControllerRadius.explosionRadius++;
+                }
+                break;
+
+            case ItemType.SpeedIncrease:
+                
+                PlayerMovement playerMovement = target.GetComponent<PlayerMovement>();
+                if (playerMovement != null)
+                {
+                    playerMovement.moveSpeed += 0.5f; 
+                }
+
+                IAEnemy iaEnemy = target.GetComponent<IAEnemy>();
+                if (iaEnemy != null)
+                {
+                    iaEnemy.moveSpeed += 0.5f; 
+                }
+                break;
+        }
+
+        Destroy(gameObject);
+    }
 }

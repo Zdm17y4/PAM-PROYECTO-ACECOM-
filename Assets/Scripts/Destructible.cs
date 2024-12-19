@@ -17,7 +17,8 @@ public class Destructible : MonoBehaviour
         if (spawnableItems.Length > 0 && Random.value < itemSpawnChance)
         {
             int randomIndex = Random.Range(0, spawnableItems.Length);
-            Vector2 correctPosition = new Vector2(Mathf.Round(transform.position.x) - 0.5f, Mathf.Round(transform.position.y)-0.5f);
+            Vector2 correctPosition = new Vector2(Mathf.Round(transform.position.x) - 
+                0.5f, Mathf.Round(transform.position.y)-0.5f);
             Instantiate(spawnableItems[randomIndex], correctPosition, Quaternion.identity);
         }
     }

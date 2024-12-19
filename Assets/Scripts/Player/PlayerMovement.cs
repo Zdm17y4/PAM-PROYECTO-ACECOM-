@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using TMPro;
 
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] public float _moveSpeed = 5f;
-
-
-
+    [SerializeField] public float moveSpeed = 5f;
 
     private Vector2 _movement;
 
@@ -29,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         _movement.Set(InputManager.Movement.x, InputManager.Movement.y);
-        _rb.velocity = _movement * _moveSpeed;
+        _rb.velocity = _movement * moveSpeed;
 
         _animator.SetFloat(_horizontal, _movement.x);
         _animator.SetFloat(_vertical, _movement.y);
@@ -47,24 +45,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Explosion"))
         {
-            DeathSequence();
+            FindAnyObjectByType<GameOver>().ShowGameOver();
+            Destroy(gameObject);
         }
     }
 
-    public GameObject Player;
-
-    private void DeathSequence()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        enabled = false;
-        GetComponent<BombController>().enabled = false;
-        GetComponent<PlayerMovement>().enabled = false;
-
-        SpriteRenderer spriteRenderer = Player.GetComponent<SpriteRenderer>();
-        CircleCollider2D circleCollider2D = Player.GetComponent<CircleCollider2D>();
-        spriteRenderer.enabled = false;
-        circleCollider2D.enabled = false;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            FindAnyObjectByType<GameOver>().ShowGameOver();
+            Destroy(gameObject);
+        }
     }
-
-
-
 }
+
+
+

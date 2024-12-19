@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Destructibles
   - StageTag
+  - Bot
+  - Explosion
   layers:
   - Default
   - TransparentFX
@@ -16,10 +18,10 @@ TagManager:
   - bomb
   - Stage
   - Explosion
-  - 
-  - 
-  - 
-  - 
+  - player
+  - Bot
+  - Enemy
+  - Portal
   - 
   - 
   - 

@@ -63,19 +63,7 @@ public class LinearMovementEnemy : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Explosion"))
         {
-            DeathSequence();
+            Destroy(gameObject);
         }
     }
-
-    public GameObject Enemy;
-    private void DeathSequence()
-    {
-        enabled = false;
-
-        SpriteRenderer spriteRenderer = Enemy.GetComponent<SpriteRenderer>();
-        BoxCollider2D boxCollider2D = Enemy.GetComponent<BoxCollider2D>();
-        spriteRenderer.enabled = false;
-        boxCollider2D.enabled = false;
-    }
-
 }
