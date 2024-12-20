@@ -7,20 +7,30 @@ public class PauseButton : MonoBehaviour
 {
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private GameObject silenceAudio;
+    [SerializeField] private AudioSource     gameSound;
     private bool pauseGame = false;
     private bool isMuted = false;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.M))
         {
+            Mute();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {   
+
             if (pauseGame)
             {
                 Resume();
+                isMuted = false;
+                gameSound.mute = isMuted;
             }
             else
             {
                 Pause();
+                isMuted = true;
+                gameSound.mute = isMuted;
             }
         }
     }
@@ -28,8 +38,9 @@ public class PauseButton : MonoBehaviour
     public void Mute()
     {
         isMuted = !isMuted;
-        silenceAudio.SetActive(!isMuted);
+        gameSound.mute = isMuted;
 
+        /*
         if (isMuted)
         {
             Debug.Log("Audio muted");
@@ -37,7 +48,7 @@ public class PauseButton : MonoBehaviour
         else
         {
             Debug.Log("Audio unmuted");
-        }
+        }*/
     }
 
 

@@ -18,17 +18,30 @@ public class BombController : MonoBehaviour
     public int explosionRadius = 1;
 
     [Header("Destructible")]
-    public Tilemap destructibleTiles;
+    public string destructibleTilemapName = "Destructibles";
+    private Tilemap destructibleTiles;
     public Destructible destructiblePrefab;
 
     private void OnEnable()
     {
         bombsRemaining = bombAmount;
+
+
+        if (destructibleTiles == null)
+        {
+            GameObject tilemapObject = GameObject.Find(destructibleTilemapName);
+            if (tilemapObject != null)
+            {
+                destructibleTiles = tilemapObject.GetComponent<Tilemap>();
+            }
+
+        }
     }
 
     private void Update()
     {
-        if (bombsRemaining > 0 && Input.GetKeyDown(inputKey)) {
+        if (bombsRemaining > 0 && Input.GetKeyDown(inputKey))
+        {
             StartCoroutine(PlaceBomb());
         }
     }
@@ -63,7 +76,8 @@ public class BombController : MonoBehaviour
 
     private void Explode(Vector2 position, Vector2 direction, int length)
     {
-        if (length <= 0) {
+        if (length <= 0)
+        {
             return;
         }
 
@@ -85,6 +99,8 @@ public class BombController : MonoBehaviour
 
     private void ClearDestructible(Vector2 position)
     {
+
+
         Vector3Int cell = destructibleTiles.WorldToCell(position);
         TileBase tile = destructibleTiles.GetTile(cell);
 
@@ -103,9 +119,9 @@ public class BombController : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("bomb")) {
+        if (other.gameObject.layer == LayerMask.NameToLayer("bomb"))
+        {
             other.isTrigger = false;
         }
     }
-
 }

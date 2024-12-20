@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 public class Score : MonoBehaviour
 {
-    private float scorePoints = 1f;
+    private float scorePointsBombs = 1f;
 
     private TextMeshProUGUI textMesh;
 
@@ -15,11 +15,11 @@ public class Score : MonoBehaviour
 
     private void Update()
     {
-        textMesh.text = scorePoints.ToString("0");
+        textMesh.text = scorePointsBombs.ToString("0");
     }
     
     public void scoreUp(float points)
     {
-        scorePoints += points;
+        scorePointsBombs += points;
     }
 }
