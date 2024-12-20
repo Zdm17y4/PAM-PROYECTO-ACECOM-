@@ -7,7 +7,7 @@ public class PauseButton : MonoBehaviour
 {
     [SerializeField] private GameObject pauseButton;
     [SerializeField] private GameObject pauseMenu;
-    [SerializeField] private AudioSource     gameSound;
+    [SerializeField] private AudioSource gameSound;
     private bool pauseGame = false;
     private bool isMuted = false;
     private void Update()
@@ -22,15 +22,15 @@ public class PauseButton : MonoBehaviour
 
             if (pauseGame)
             {
-                Resume();
                 isMuted = false;
                 gameSound.mute = isMuted;
+                Resume();
             }
             else
             {
-                Pause();
                 isMuted = true;
                 gameSound.mute = isMuted;
+                Pause();
             }
         }
     }

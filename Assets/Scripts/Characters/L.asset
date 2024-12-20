@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b151de4e6180484097788c43d373c97, type: 3}
   m_Name: L
   m_EditorClassIdentifier: 
-  playableCharacter: {fileID: 7883108924877941804, guid: 48c22ea2534775d4f8e5b58240caa097, type: 3}
+  playableCharacter: {fileID: 6677143165859019667, guid: 207664146d53e9f4599198bba7bf2a2e, type: 3}
   image: {fileID: 2048811491, guid: 1adcdf114e1682d4d925300e36c32b07, type: 3}
   Name: L
